@@ -1,0 +1,15 @@
+# Tiltmeter for Repo Pulse.
+version: 1
+
+subscriptions:
+  # GitHub publishes one OpenAPI description per REST API version. This code was written
+  # against 2022-11-28; follow 2026-03-10, the first version with breaking changes.
+  - openapi: https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.2026-03-10.json
+    baseline: https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.2022-11-28.json
+    provider: api.github.com
+
+llm:
+  enabled: false
+
+fix:
+  agent: claude-code
