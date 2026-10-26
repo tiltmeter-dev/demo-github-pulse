@@ -12,21 +12,21 @@ export interface User {
 }
 
 export interface RateLimit {
-  rate: { limit: number; remaining: number; reset: number };
+  resources: { core: { limit: number; remaining: number; reset: number } };
 }
 
 export interface Pull {
   number: number;
   title: string;
   merged_at: string | null;
-  merge_commit_sha: string | null;
-  assignee: User | null;
+  merge_commit_sha?: string | null;
+  assignees?: User[] | null;
 }
 
 export interface Issue {
   number: number;
   title: string;
-  assignee: User | null;
+  assignees?: User[] | null;
   pull_request?: unknown;
 }
 
@@ -34,7 +34,7 @@ export interface Repository {
   full_name: string;
   stargazers_count: number;
   open_issues_count: number;
-  has_downloads: boolean;
+  has_downloads?: boolean;
 }
 
 export async function get<T>(path: string): Promise<T> {

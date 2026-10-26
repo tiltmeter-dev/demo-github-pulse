@@ -5,7 +5,7 @@ import type { Issue, Pull, RateLimit, Repository } from "./github.ts";
 
 export async function quotaLeft(): Promise<number> {
   const limits = await get<RateLimit>("/rate_limit");
-  return limits.rate.remaining;
+  return limits.resources.core.remaining;
 }
 
 export async function merged(owner: string, repo: string): Promise<string[]> {
@@ -14,7 +14,7 @@ export async function merged(owner: string, repo: string): Promise<string[]> {
     .filter((pull) => pull.merged_at !== null)
     .map((pull) => {
       const sha = pull.merge_commit_sha?.slice(0, 7) ?? "unknown";
-      const owner = pull.assignee?.login ?? "nobody";
+      const owner = pull.assignees?.[0]?.login ?? "nobody";
       return `#${pull.number} ${pull.title} (${sha}, ${owner})`;
     });
 }
@@ -24,7 +24,7 @@ export async function issueOwners(owner: string, repo: string): Promise<Map<stri
   const counts = new Map<string, number>();
   for (const issue of issues) {
     if (issue.pull_request) continue;
-    const login = issue.assignee?.login ?? "unassigned";
+    const login = issue.assignees?.[0]?.login ?? "unassigned";
     counts.set(login, (counts.get(login) ?? 0) + 1);
   }
   return counts;

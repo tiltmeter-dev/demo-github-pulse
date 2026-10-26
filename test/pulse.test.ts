@@ -6,7 +6,6 @@ import { header, issueOwners, merged, quotaLeft } from "../src/pulse.ts";
 const RESPONSES: Record<string, unknown> = {
   "/rate_limit": {
     resources: { core: { limit: 5000, remaining: 4870, reset: 1793620800 } },
-    rate: { limit: 5000, remaining: 4870, reset: 1793620800 },
   },
   "/repos/acme/rocket/pulls?state=closed&per_page=50": [
     {
@@ -14,15 +13,14 @@ const RESPONSES: Record<string, unknown> = {
       title: "Faster launches",
       merged_at: "2026-10-20T10:00:00Z",
       merge_commit_sha: "4f9c2e1aa7d0",
-      assignee: { login: "ana" },
       assignees: [{ login: "ana" }],
     },
-    { number: 11, title: "Abandoned", merged_at: null, merge_commit_sha: null, assignee: null, assignees: [] },
+    { number: 11, title: "Abandoned", merged_at: null, merge_commit_sha: null, assignees: [] },
   ],
   "/repos/acme/rocket/issues?state=open&per_page=100": [
-    { number: 30, title: "Crash", assignee: { login: "ana" }, assignees: [{ login: "ana" }] },
-    { number: 31, title: "Docs", assignee: null, assignees: [] },
-    { number: 32, title: "A pull request", assignee: null, assignees: [], pull_request: {} },
+    { number: 30, title: "Crash", assignees: [{ login: "ana" }] },
+    { number: 31, title: "Docs", assignees: [] },
+    { number: 32, title: "A pull request", assignees: [], pull_request: {} },
   ],
   "/repos/acme/rocket": {
     full_name: "acme/rocket",
